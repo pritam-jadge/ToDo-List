@@ -2,11 +2,11 @@ package com.project.todolist.service;
 
 import com.project.todolist.model.Task;
 import com.project.todolist.repository.TaskRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -39,5 +39,17 @@ public class TaskService {
         } else {
             return false;
         }
+    }
+
+    public Optional<Task> updateTaskDetails(Task task) {
+        return taskRepository.findById(task.getId())
+                .map(existing -> {
+                    existing.setTitle(task.getTitle());
+                    existing.setDescription(task.getDescription());
+                    existing.setDueDate(task.getDueDate());
+                    existing.setStatus(task.isStatus());
+                    existing.setCreatedAt(LocalDateTime.now());
+                    return taskRepository.save(existing);
+                });
     }
 }

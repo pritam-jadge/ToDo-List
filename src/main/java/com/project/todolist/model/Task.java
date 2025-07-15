@@ -29,7 +29,7 @@ public class Task {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dueDate;
 
-    @Column(updatable = false)
+    @Column(updatable = true)
     private LocalDateTime createdAt = LocalDateTime.now();
 
 }

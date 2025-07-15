@@ -60,8 +60,12 @@ public class TaskController {
         }
     }
 
-//    @PutMapping
-//
+    @PutMapping("/updateTask")
+    public ResponseEntity<String> updateTask(@RequestBody Task task) {
+        return taskService.updateTaskDetails(task)
+                .map(updated -> ResponseEntity.ok("Updated"))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task Not Found"));
+    }
 
     @GetMapping("test")
     public void test() {
